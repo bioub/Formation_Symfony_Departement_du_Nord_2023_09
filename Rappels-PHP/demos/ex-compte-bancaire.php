@@ -13,13 +13,14 @@ require_once __DIR__ . '/../vendor/autoload.php';
 // tel que le code suivant fonctionne :
 
 use Nord\Entity\CompteBancaire;
+use Nord\Entity\CompteType;
 use Nord\Entity\Contact;
 
 $contact = new Contact();
 $contact->setId(1)->setFirstname('Bill')->setLastname('Gates');
 
 $compte = new CompteBancaire();
-$compte->setId(100)->setProprietaire($contact)->setType('Compte Courant');
+$compte->setId(100)->setProprietaire($contact)->setType(CompteType::LIVRET_A);
 
 echo "Solde : " . $compte->getSolde() . "\n"; // Solde : 0
 
