@@ -24,3 +24,26 @@ Dans ce template, afficher les contacts sous forme de balise table (3 colonnes i
 Ajouter une 4e colonne `Actions` avec un lien `Afficher` sur chaque ligne qui renvoie vers la page `GET /contacts/{id}`
 
 Dans le controller `show` de `ContactController`, créer un objet `Contact` le passer au template et l'afficher avec la mise en forme de votre choix.
+
+## Doctrine
+
+Supprimer la classe `Contact`
+
+Avec la commande `make:entity`, regénérer la classe `Contact` avec les 4 propriétés suivantes (en plus de l'id) :
+
+- `firstname`
+- `lastname`
+- `email` (optionnel)
+- `phone` (optionnel)
+
+Les 4 sont de type string (taille au choix)
+
+Générer la méthode `setId` via PHPStorm
+
+Lancer la commande pour updater la table
+
+Compléter `AppFixtures` pour y générer 5 contacts.
+
+Lancer la commande pour insérer les fixtures
+
+Compléter les méthodes `index` et `show` de `ContactController` pour afficher les contacts (la liste et le détail)
