@@ -8,13 +8,17 @@
     <p>
         <a href="{{ path('app_contact_show', {id: 123}) }}">Contact 123</a>
     </p>
+    <div>
+        <img src="{{ asset('img/logo.png') }}" />
+    </div>
 {% endblock %}
 
 {% block stylesheets %}
     {{ parent() }}
-    <style>
-        body {
-            background: lightblue;
-        }
-    </style>
+    {{ encore_entry_link_tags('demo') }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('demo') }}
 {% endblock %}
