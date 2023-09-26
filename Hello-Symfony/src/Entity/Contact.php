@@ -2,10 +2,21 @@
 
 namespace App\Entity;
 
+
+use Doctrine\ORM\Mapping as ORM;
+
+#[ORM\Entity]
 class Contact
 {
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(nullable: false)]
     protected int $id;
+
+    #[ORM\Column(length: 50, nullable: false)]
     protected string $firstname;
+
+    #[ORM\Column(length: 40, nullable: false)]
     protected string $lastname;
 
     /**
@@ -61,5 +72,4 @@ class Contact
         $this->lastname = $lastname;
         return $this;
     }
-
 }

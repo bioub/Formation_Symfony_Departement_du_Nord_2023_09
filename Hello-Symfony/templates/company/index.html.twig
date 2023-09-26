@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des sociétés{% endblock %}
+
+{% block body %}
+
+    <ul>
+        {% for c in companies %}
+        <li>{{ c.name }}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
