@@ -2,7 +2,7 @@
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-// Créer une classe CompteBancaire qui doit respecter les contraintes suivantes
+// Créer une classe Account qui doit respecter les contraintes suivantes
 // Définir 4 propriétés :
 // - id (de type int)
 // - type (de type string)
