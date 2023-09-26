@@ -13,7 +13,7 @@ class DemoController extends AbstractController
     {
 
         return $this->render('demo/index.html.twig', [
-            'controller_name' => 'DemoController',
+            'name' => "<script>alert('XSS')</script>"
         ]);
     }
 }
