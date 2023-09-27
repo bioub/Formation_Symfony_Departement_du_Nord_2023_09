@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Contact;
+use App\Form\ContactType;
 use App\Manager\ContactManager;
 use App\Repository\ContactRepository;
 use Doctrine\ORM\EntityManager;
@@ -27,10 +28,25 @@ class ContactController extends AbstractController
     }
 
     #[Route('/add', methods: ['GET', 'POST'])]
-    public function create(Request $request): Response
+    public function create(Request $request, EntityManagerInterface $entityManager): Response
     {
+        $form = $this->createForm(ContactType::class);
+        $form->handleRequest($request);
+        $contact = $form->getData();
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->persist($contact);
+            $entityManager->flush();
+
+            $this->addFlash('success', "Le contact {$contact->getFirstname()} {$contact->getLastname()} a bien été créé");
+
+            return $this->redirectToRoute('app_contact_index');
+        }
+
         // $request->getSession()->set('token', '12143FDGDTG');
-        return $this->render('contact/create.html.twig');
+        return $this->render('contact/create.html.twig', [
+            'contactForm' => $form->createView(),
+        ]);
     }
 
     #[Route('/{id}', requirements: ["id" => "[1-9][0-9]*"], methods: ['GET'])]
@@ -61,7 +77,7 @@ class ContactController extends AbstractController
                 $manager->remove($entity);
                 $manager->flush();
 
-                $this->addFlash('success', "Le contact {$entity->getFirstname()} {$entity->getLastname()} a bien été");
+                $this->addFlash('success', "Le contact {$entity->getFirstname()} {$entity->getLastname()} a bien été supprimé");
             }
 
             return $this->redirectToRoute('app_contact_index');

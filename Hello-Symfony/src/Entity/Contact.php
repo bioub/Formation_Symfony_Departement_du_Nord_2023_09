@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ContactRepository::class)]
 class Contact
@@ -22,6 +23,8 @@ class Contact
     #[ORM\Column(length: 50)]
     private ?string $lastname = null;
 
+    #[Assert\Email]
+    #[Assert\Length(max: 80, maxMessage: 'Pas plus de {{ limit }} caractères')]
     #[ORM\Column(length: 80, nullable: true)]
     private ?string $email = null;
 
@@ -144,5 +147,6 @@ class Contact
 
         return $this;
     }
+
 
 }

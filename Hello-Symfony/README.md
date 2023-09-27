@@ -65,3 +65,9 @@ Associer ces tags aux contacts existants.
 Lancer la commande pour insérer les fixtures.
 
 Mettre à jour le templates `contact/show.html.twig` pour afficher les tags
+
+## Validation et Formulaire
+
+Ajouter l'attribut de validation dans `Company` pour vérifier que le nom d'une ville soit supérieur ou égal à 2 caractères.
+
+Générer le type de formulaire `CompanyType` et créer la route `/company/create` dans `CompanyController` pour insérer des nouvelles sociétés.
