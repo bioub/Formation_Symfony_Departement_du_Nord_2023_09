@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Entity\Contact;
 use App\Manager\ContactManager;
 use App\Repository\ContactRepository;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,7 +18,8 @@ class ContactController extends AbstractController
     #[Route(methods: ['GET'])]
     public function index(ContactRepository $repository): Response
     {
-        $entities = $repository->findBy([], limit: 100);
+//        $entities = $repository->findBy([], limit: 100);
+        $entities = $repository->findAllWithCompaniesDQL();
 
         return $this->render('contact/index.html.twig', [
             'contacts' => $entities,
@@ -35,15 +38,38 @@ class ContactController extends AbstractController
     {
         $entity = $repository->find($id);
 
+        if (!$entity) {
+            throw $this->createNotFoundException("Contact $id not found");
+        }
+
         return $this->render('contact/show.html.twig', [
             'contact' => $entity
         ]);
     }
 
     #[Route('/{id}/delete', requirements: ["id" => "[1-9][0-9]*"], methods: ['GET', 'POST'])]
-    public function delete($id): Response
+    public function delete($id, ContactRepository $repository, Request $request, EntityManagerInterface $manager): Response
     {
-        return $this->render('contact/delete.html.twig');
+        $entity = $repository->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException("Contact $id not found");
+        }
+
+        if ($request->isMethod('POST')) {
+            if ($request->get('confirm') === 'oui' && $this->isCsrfTokenValid('delete'.$entity->getId(), $request->request->get('_token'))) {
+                $manager->remove($entity);
+                $manager->flush();
+
+                $this->addFlash('success', "Le contact {$entity->getFirstname()} {$entity->getLastname()} a bien été");
+            }
+
+            return $this->redirectToRoute('app_contact_index');
+        }
+
+        return $this->render('contact/delete.html.twig', [
+            'contact' => $entity
+        ]);
     }
 
     #[Route('/{id}/update', requirements: ["id" => "[1-9][0-9]*"], methods: ['GET', 'POST'])]

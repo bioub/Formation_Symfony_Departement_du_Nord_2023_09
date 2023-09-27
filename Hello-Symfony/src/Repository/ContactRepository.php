@@ -36,6 +36,33 @@ class ContactRepository extends ServiceEntityRepository
 //        ;
 //    }
 
+    public function findAllWithCompanies(): array
+    {
+        return $this->createQueryBuilder('ctc')
+            ->select('ctc, cpn')
+            ->leftJoin('ctc.company', 'cpn')
+            ->orderBy('ctc.id', 'ASC')
+            ->setMaxResults(100)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    public function findAllWithCompaniesDQL(): array
+    {
+        $dql = <<<DQL
+SELECT ctc, cpn
+FROM App\Entity\Contact ctc
+LEFT JOIN ctc.company cpn
+ORDER BY ctc.id ASC
+DQL;
+
+        return $this->getEntityManager()->createQuery($dql)
+            ->setMaxResults(100)
+            ->getResult()
+            ;
+    }
+
 //    public function findOneBySomeField($value): ?Contact
 //    {
 //        return $this->createQueryBuilder('c')

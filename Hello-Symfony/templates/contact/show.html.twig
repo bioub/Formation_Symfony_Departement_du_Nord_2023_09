@@ -14,4 +14,9 @@
         <h3>company</h3>
         <p>{{ contact.company.name }}</p>
     {% endif %}
+    {% if contact.tags | length > 0 %}
+        <h3>tags</h3>
+        <p>{{ contact.tags | join(', ') }}</p>
+    {% endif %}
+    <a href="{{ path('app_contact_delete', {'id': contact.id}) }}">Supprimer</a>
 {% endblock %}

@@ -4,4 +4,10 @@
 
 {% block body %}
 <h2>Supprimer un contact</h2>
+    <form method="post">
+        <p>Etes vous sûr de vouloir supprimer {{ contact.firstname }} {{ contact.lastname }} ?</p>
+        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ contact.id) }}">
+        <button name="confirm" value="oui">Oui</button>
+        <button name="confirm" value="non">Non</button>
+    </form>
 {% endblock %}
