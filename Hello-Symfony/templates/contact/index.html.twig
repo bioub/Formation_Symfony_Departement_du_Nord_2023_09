@@ -10,6 +10,7 @@
             <th>id</th>
             <th>firstname</th>
             <th>lastname</th>
+            <th>company</th>
             <th>actions</th>
         </tr>
         </thead>
@@ -19,6 +20,7 @@
                 <td>{{ c.id }}</td>
                 <td>{{ c.firstname }}</td>
                 <td>{{ c.lastname }}</td>
+                <td>{{ c.company ? c.company.name : '' }}</td>
                 <td>
                     <a href="{{ path('app_contact_show', {'id': c.id}) }}">Afficher</a>
                 </td>

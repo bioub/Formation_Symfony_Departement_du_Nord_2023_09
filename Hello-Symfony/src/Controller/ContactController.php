@@ -4,7 +4,9 @@ namespace App\Controller;
 
 use App\Entity\Contact;
 use App\Manager\ContactManager;
+use App\Repository\ContactRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -12,9 +14,9 @@ use Symfony\Component\Routing\Annotation\Route;
 class ContactController extends AbstractController
 {
     #[Route(methods: ['GET'])]
-    public function index(ContactManager $manager): Response
+    public function index(ContactRepository $repository): Response
     {
-        $entities = $manager->getAll();
+        $entities = $repository->findBy([], limit: 100);
 
         return $this->render('contact/index.html.twig', [
             'contacts' => $entities,
@@ -22,15 +24,17 @@ class ContactController extends AbstractController
     }
 
     #[Route('/add', methods: ['GET', 'POST'])]
-    public function create(): Response
+    public function create(Request $request): Response
     {
+        // $request->getSession()->set('token', '12143FDGDTG');
         return $this->render('contact/create.html.twig');
     }
 
     #[Route('/{id}', requirements: ["id" => "[1-9][0-9]*"], methods: ['GET'])]
-    public function show($id): Response
+    public function show($id, ContactRepository $repository): Response
     {
-        $entity = (new Contact())->setId($id)->setFirstname('Bill')->setLastname('Gates');
+        $entity = $repository->find($id);
+
         return $this->render('contact/show.html.twig', [
             'contact' => $entity
         ]);

@@ -10,4 +10,8 @@
     <p>{{ contact.firstname }}</p>
     <h3>lastname</h3>
     <p>{{ contact.lastname }}</p>
+    {% if contact.company %}
+        <h3>company</h3>
+        <p>{{ contact.company.name }}</p>
+    {% endif %}
 {% endblock %}
