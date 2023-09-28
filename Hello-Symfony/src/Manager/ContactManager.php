@@ -19,7 +19,7 @@ class ContactManager
     /**
      * @return Contact[]
      */
-    public function getAll(): array
+    public function findAll(): array
     {
         return $this->entities;
     }

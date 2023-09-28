@@ -12,8 +12,8 @@ require_once __DIR__ . '/../vendor/autoload.php';
 // ajouter 2 méthodes crediter et debiter pour mettre à jour le solde
 // tel que le code suivant fonctionne :
 
-use Nord\Entity\CompteBancaire;
-use Nord\Entity\CompteType;
+use App\Entity\CompteBancaire;
+use App\Entity\CompteType;
 use Nord\Entity\Contact;
 
 $contact = new Contact();

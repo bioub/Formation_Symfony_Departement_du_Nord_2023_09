@@ -52,6 +52,18 @@ class Contact
         return $this->id;
     }
 
+    /**
+     * @param int|null $id
+     * @return Contact
+     */
+    public function setId(?int $id): Contact
+    {
+        $this->id = $id;
+        return $this;
+    }
+
+
+
     public function getFirstname(): ?string
     {
         return $this->firstname;

@@ -10,15 +10,15 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class TagControllerTest extends WebTestCase
 {
-    /*
     private KernelBrowser $client;
     private TagRepository $repository;
-    private string $path = '/tag/';
-    private EntityManagerInterface $manager;
+    private string $path = '/tags';
+    private ?EntityManagerInterface $manager = null;
 
     protected function setUp(): void
     {
         $this->client = static::createClient();
+        $this->manager = static::getContainer()->get(EntityManagerInterface::class);
         $this->repository = static::getContainer()->get('doctrine')->getRepository(Tag::class);
 
         foreach ($this->repository->findAll() as $object) {
@@ -42,17 +42,17 @@ class TagControllerTest extends WebTestCase
         $originalNumObjectsInRepository = count($this->repository->findAll());
 
         $this->markTestIncomplete();
-        $this->client->request('GET', sprintf('%snew', $this->path));
+        $this->client->request('GET', sprintf('%s/new', $this->path));
 
-        self::assertResponseStatusCodeSame(200);
+        $this->assertResponseStatusCodeSame(200);
 
         $this->client->submitForm('Save', [
             'tag[name]' => 'Testing',
         ]);
 
-        self::assertResponseRedirects('/tag/');
+        $this->assertResponseRedirects('/tags');
 
-        self::assertSame($originalNumObjectsInRepository + 1, count($this->repository->findAll()));
+        $this->assertSame($originalNumObjectsInRepository + 1, count($this->repository->findAll()));
     }
 
     public function testShow(): void
@@ -64,7 +64,7 @@ class TagControllerTest extends WebTestCase
         $this->manager->persist($fixture);
         $this->manager->flush();
 
-        $this->client->request('GET', sprintf('%s%s', $this->path, $fixture->getId()));
+        $this->client->request('GET', sprintf('%s/%s', $this->path, $fixture->getId()));
 
         self::assertResponseStatusCodeSame(200);
         self::assertPageTitleContains('Tag');
@@ -81,13 +81,13 @@ class TagControllerTest extends WebTestCase
         $this->manager->persist($fixture);
         $this->manager->flush();
 
-        $this->client->request('GET', sprintf('%s%s/edit', $this->path, $fixture->getId()));
+        $this->client->request('GET', sprintf('%s/%s/edit', $this->path, $fixture->getId()));
 
         $this->client->submitForm('Update', [
             'tag[name]' => 'Something New',
         ]);
 
-        self::assertResponseRedirects('/tag/');
+        self::assertResponseRedirects('/tags');
 
         $fixture = $this->repository->findAll();
 
@@ -108,11 +108,10 @@ class TagControllerTest extends WebTestCase
 
         self::assertSame($originalNumObjectsInRepository + 1, count($this->repository->findAll()));
 
-        $this->client->request('GET', sprintf('%s%s', $this->path, $fixture->getId()));
+        $this->client->request('GET', sprintf('%s/%s', $this->path, $fixture->getId()));
         $this->client->submitForm('Delete');
 
         self::assertSame($originalNumObjectsInRepository, count($this->repository->findAll()));
-        self::assertResponseRedirects('/tag/');
+        self::assertResponseRedirects('/tags');
     }
-    */
 }

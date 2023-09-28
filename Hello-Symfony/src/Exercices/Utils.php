@@ -23,7 +23,7 @@ class Utils
     public function racineCarre(int $nb): int
     {
         if ($nb < 0) {
-            throw new \Exception('nb must be positive');
+           throw new \Exception('nb must be positive');
         }
 
         return sqrt($nb);
