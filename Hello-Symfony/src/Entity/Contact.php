@@ -35,7 +35,7 @@ class Contact
     private ?string $description = null;
 
 //    #[ORM\ManyToOne(fetch: 'EAGER')]
-    #[ORM\ManyToOne(targetEntity: Company::class)]
+    #[ORM\ManyToOne(targetEntity: Company::class, inversedBy: 'contacts')]
     private ?Company $company = null;
 
     #[ORM\ManyToMany(targetEntity: Tag::class)]

@@ -25,7 +25,13 @@
                 <td>{{ c.id }}</td>
                 <td>{{ c.firstname }}</td>
                 <td>{{ c.lastname }}</td>
-                <td>{{ c.company ? c.company.name : '' }}</td>
+                <td>
+                    {% if c.company %}
+                        <a href="{{ path('app_company_show', {'id': c.company.id}) }}">
+                            {{ c.company.name }}
+                        </a>
+                    {% endif %}
+                </td>
                 <td>
                     <a href="{{ path('app_contact_show', {'id': c.id}) }}">Afficher</a>
                 </td>

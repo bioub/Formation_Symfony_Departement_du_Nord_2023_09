@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Societe{% endblock %}
+
+{% block body %}
+    <p>Name: {{ company.name }}</p>
+    <p>Contacts</p>
+    <ul>
+        {% for c in company.contacts %}
+        <li>{{ c.firstname }} {{ c.lastname }}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
