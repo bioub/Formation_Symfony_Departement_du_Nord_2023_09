@@ -36,5 +36,19 @@ class ContactControllerTest extends WebTestCase
         // En s'inspirant du test précédent
         // Créer un test functionnel de la méthode avec un mock de ContactRepository
         // et une fausse méthode find
+
+        $client = static::createClient();
+
+        $mock = $this->createMock(ContactRepository::class);
+        $mock->expects(self::once())->method('find')->willReturn(
+            (new Contact())->setId(1)->setFirstname('Toto')->setLastname('Titi')
+        );
+
+        self::getContainer()->set(ContactRepository::class, $mock);
+
+        $crawler = $client->request('GET', '/contacts/1');
+
+        $this->assertResponseIsSuccessful();
+        $this->assertSelectorTextContains('body', 'Toto');
     }
 }
