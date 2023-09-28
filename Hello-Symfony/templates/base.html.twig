@@ -18,6 +18,15 @@
         {% endblock %}
     </head>
     <body>
+        <nav>
+           {% if is_granted('ROLE_USER') %}
+            Hello {{ app.user.email }}
+               <a href="{{ path('app_logout') }}">Logout</a>
+            {% else %}
+            Hello
+                <a href="{{ path('app_login') }}">Login</a>
+            {% endif %}
+        </nav>
         {% block body %}{% endblock %}
     </body>
 </html>

@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 class CompanyController extends AbstractController
 {
@@ -52,10 +53,12 @@ class CompanyController extends AbstractController
         ]);
     }
 
-
+    #[IsGranted('ROLE_USER')]
     #[Route('/companies/{id}/update')]
     public function update(int $id, Request $request, EntityManagerInterface $entityManager): Response
     {
+       // $this->denyAccessUnlessGranted('ROLE_USER');
+
         $entity = $entityManager->find(Company::class, $id);
 
         if (!$entity) {

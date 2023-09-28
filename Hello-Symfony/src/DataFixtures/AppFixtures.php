@@ -5,6 +5,7 @@ namespace App\DataFixtures;
 use App\Entity\Company;
 use App\Entity\Contact;
 use App\Entity\Tag;
+use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
@@ -14,6 +15,10 @@ class AppFixtures extends Fixture
     {
         // $product = new Product();
         // $manager->persist($product);
+        $romain = new User();
+        $romain->setEmail('romain.bohdanowicz@formation.tech')->setPassword('$2y$13$fhCeXg88gcrtqOmcqdv8ceN3s51se4/IP9S52VPAjqzMwAqKhB9/a');
+        $manager->persist($romain);
+
         $apple = new Company();
         $apple->setName('Apple')->setCity('Cupertino');
         $manager->persist($apple);
