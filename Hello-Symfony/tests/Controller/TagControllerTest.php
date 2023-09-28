@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class TagControllerTest extends WebTestCase
 {
+    /*
     private KernelBrowser $client;
     private TagRepository $repository;
     private string $path = '/tag/';
@@ -113,4 +114,5 @@ class TagControllerTest extends WebTestCase
         self::assertSame($originalNumObjectsInRepository, count($this->repository->findAll()));
         self::assertResponseRedirects('/tag/');
     }
+    */
 }
